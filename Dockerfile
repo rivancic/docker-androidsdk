@@ -1,0 +1,49 @@
+FROM java:7
+MAINTAINER Mohammad Naghavi <mohamnag@gmail.com>
+
+ENV ANDROID_VERSION android-23
+ENV BUILD_TOOLS_VERSION build-tools-23.0.2
+ENV GRADLE_VERSION 2.7
+
+
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV GRADLE_USER_HOME /usr/bin/gradle
+
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
+ENV LC_ALL C.UTF-8
+
+ENV PATH $PATH:$ANDROID_HOME/tools:$GRADLE_USER_HOME/bin
+
+# install 32-bit dependencies
+RUN apt-get update -y && \
+    dpkg --add-architecture i386 && \
+    apt-get update -y && \
+    apt-get install -y libncurses5:i386 libstdc++6:i386 zlib1g:i386
+
+# install Gradle
+ADD https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip /usr/bin/gradle.zip
+WORKDIR /usr/bin
+RUN apt-get install -y unzip && \
+    unzip gradle.zip && \
+    ln -s gradle-${GRADLE_VERSION} gradle && \
+    rm gradle.zip && \
+    apt-get remove -y unzip
+
+# install android SDK
+ADD http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz /tmp/android-sdk-linux.tgz
+RUN mkdir -p $ANDROID_HOME && \
+    tar -xzf /tmp/android-sdk-linux.tgz -C /tmp && \
+    mv /tmp/android-sdk-linux/* $ANDROID_HOME && \
+    echo y | android update sdk -a -u -t platform-tools,${ANDROID_VERSION},${BUILD_TOOLS_VERSION},extra-android-m2repository
+
+# clean up
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    apt-get autoremove -y && \
+    apt-get clean
+
+VOLUME /build
+
+WORKDIR /build
+
+CMD ["gradle", "-version"]
