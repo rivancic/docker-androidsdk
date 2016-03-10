@@ -2,6 +2,7 @@ FROM java:7
 MAINTAINER Mohammad Naghavi <mohamnag@gmail.com>
 
 ENV ANDROID_VERSION android-23
+ENV ANDROID_SDK_VERSION 24.4.1
 ENV BUILD_TOOLS_VERSION build-tools-23.0.2
 ENV GRADLE_VERSION 2.7
 
@@ -31,11 +32,11 @@ RUN apt-get install -y unzip && \
     apt-get remove -y unzip
 
 # install android SDK
-ADD http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz /tmp/android-sdk-linux.tgz
+ADD http://dl.google.com/android/android-sdk_r${ANDROID_SDK_VERSION}-linux.tgz /tmp/android-sdk-linux.tgz
 RUN mkdir -p $ANDROID_HOME && \
     tar -xzf /tmp/android-sdk-linux.tgz -C /tmp && \
     mv /tmp/android-sdk-linux/* $ANDROID_HOME && \
-    echo y | android update sdk -a -u -t platform-tools,${ANDROID_VERSION},${BUILD_TOOLS_VERSION},extra-android-m2repository
+    echo y | android update sdk -a -u -t platform-tools,${ANDROID_VERSION},${BUILD_TOOLS_VERSION},extra-android-m2repository,extra-android-support
 
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
