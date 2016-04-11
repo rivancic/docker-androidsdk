@@ -1,5 +1,5 @@
 FROM java:7
-MAINTAINER Mohammad Naghavi <mohamnag@gmail.com>
+MAINTAINER Renato Ivancic <renato.ivancic@gmail.com>
 
 ENV ANDROID_VERSION android-23
 ENV ANDROID_SDK_VERSION 24.4.1
