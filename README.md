@@ -11,3 +11,8 @@ Mount your code on `/build` and run `gradle build`
 
 Example:
 `docker run -t -i --name android -v <path to your project>:/build/ rivancic/androidsdk /bin/bash`
+
+## TODO 
+
+- Slim the image with alpine linux as a base OS
+- extract some variables in the docker file like in -> https://hub.docker.com/r/bwits/android-sdk-alpine/~/dockerfile/
