@@ -4,7 +4,7 @@ MAINTAINER Renato Ivancic <renato.ivancic@gmail.com>
 ENV ANDROID_VERSION android-23
 ENV ANDROID_SDK_VERSION 24.4.1
 ENV BUILD_TOOLS_VERSION build-tools-23.0.2
-ENV GRADLE_VERSION 2.7
+ENV GRADLE_VERSION 2.10
 
 
 ENV ANDROID_HOME /opt/android-sdk-linux
