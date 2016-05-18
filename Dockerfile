@@ -36,7 +36,7 @@ ADD http://dl.google.com/android/android-sdk_r${ANDROID_SDK_VERSION}-linux.tgz /
 RUN mkdir -p $ANDROID_HOME && \
     tar -xzf /tmp/android-sdk-linux.tgz -C /tmp && \
     mv /tmp/android-sdk-linux/* $ANDROID_HOME && \
-    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui -a --filter platform-tools,${ANDROID_VERSION},${BUILD_TOOLS_VERSION},extra-android-m2repository,extra-android-support
+    ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui -a --filter platform-tools,${ANDROID_VERSION},${BUILD_TOOLS_VERSION},extra-android-m2repository,extra-android-support,extra-google-google_play_services
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get autoremove -y && \
