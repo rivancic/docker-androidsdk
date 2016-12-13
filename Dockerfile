@@ -1,4 +1,4 @@
-FROM java:7
+FROM java:8
 MAINTAINER Renato Ivancic <renato.ivancic@gmail.com>
 
 ENV ANDROID_VERSION android-24
